@@ -1,12 +1,14 @@
 package com.jonasSmendes.gamelist.controller;
 
 
+import com.jonasSmendes.gamelist.dto.GameDTO;
 import com.jonasSmendes.gamelist.dto.GameMinDTO;
 import com.jonasSmendes.gamelist.entities.Game;
 import com.jonasSmendes.gamelist.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,12 @@ public class GameController {
     @GetMapping
     public ResponseEntity<List<GameMinDTO>> gameList(){
         List<GameMinDTO> result = gameService.findAll();
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<GameDTO> game(@PathVariable Long id){
+        GameDTO result = gameService.findId(id);
         return ResponseEntity.ok().body(result);
     }
 }
