@@ -3,6 +3,7 @@ package com.jonasSmendes.gamelist.services;
 import com.jonasSmendes.gamelist.dto.GameDTO;
 import com.jonasSmendes.gamelist.dto.GameMinDTO;
 import com.jonasSmendes.gamelist.entities.Game;
+import com.jonasSmendes.gamelist.projections.GameMinProjection;
 import com.jonasSmendes.gamelist.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,14 @@ public class GameService {
                .map(d -> new GameMinDTO(d))
                .toList();
        return dtos;
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList (Long listId){
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        List<GameMinDTO> dtos = result.stream()
+                .map(d -> new GameMinDTO(d))
+                .toList();
+        return dtos;
     }
 }
