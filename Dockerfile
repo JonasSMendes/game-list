@@ -8,7 +8,7 @@ RUN mvn clean install
 
 FROM openjdk:8-jre-alpine
 
-COPY --from=buld /app/target/spring-boot-2-gamelist-1.0.2-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/spring-boot-2-gamelist-1.0.2-SNAPSHOT.jar /app/app.jar
 
 WORKDIR /app
 
